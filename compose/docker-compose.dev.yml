@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  app:
+    image: ${IMAGE_SERVICE}
+    volumes:
+      - ./app:/app
+    build:
+      args:
+        - DJANGO_ENV=dev
+    ports:
+      - "${PORT_DEBUG}:8000"
+    command: ["sh", "/app/boot_scripts/dev.sh"]
+

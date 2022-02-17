@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  nginx:
+    image: nginx:1.19.8
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./app:/app
+    ports:
+      - "${PORT_NGINX}:5000"
+    depends_on:
+      - app
+    networks:
+      - sbi-bridge
+
+  app:
+    build: ./app
+    env_file: .env
+    networks:
+      - sbi-bridge
+
+networks:
+  sbi-bridge:
+    external: True
