@@ -18,7 +18,10 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls import include
 
-from hive_sbi_webapp.webapp.views import HomeView 
+from hive_sbi_webapp.webapp.views import (HomeView,
+                                          UserInfoForm,
+                                          RichListView,
+                                          RichListHiveView) 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,6 +32,23 @@ urlpatterns = [
         name='home',
     ),
 
+    path(
+        'userinfo/',
+        UserInfoForm.as_view(),
+        name='userinfo_form',
+    ),
+
+    path(
+        'richlist/',
+        RichListView.as_view(),
+        name='richlist',
+    ),
+
+    path(
+        'richlist-hive/',
+        RichListHiveView.as_view(),
+        name='richlist_hive',
+    ),
 ]
 
 if settings.DEBUG:

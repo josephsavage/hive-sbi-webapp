@@ -9,25 +9,57 @@
   <meta name="description" content="SBI">
   <meta name="author" content="SBI.">
   <link rel="shortcut icon" href="{% static 'img/favicon.png' %}">
-  
+  <link id="theme-style" rel="stylesheet" href="{% static 'assets/plugins/bootstrap/css/bootstrap.css' %}">  
   <link id="theme-style" rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+
   {% block extrastyle %}{% endblock %}
 </head> 
 
 
 <body>
-{% block content %}{% endblock content %}
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">HIVE - SBI</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link {% if active_userinfo %}active{% endif %}" aria-current="page" href="{% url 'userinfo_form' %}">User Info</a>
+          </li>
+          {% comment %}
+          <li class="nav-item">
+            <a class="nav-link {% if active_richlist %}active{% endif %}" href="{% url 'richlist' %}">Rich List</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  {% if active_richlist_hive %}active{% endif %}" href="{% url 'richlist_hive' %}">Rich List Hive</a>
+          </li>
+          {% endcomment %}
+        </ul>
 
-<!-- Javascript -->
-{% block script %}
-<script src="{% static 'assets/plugins/jquery/jquery-3.6.0.min.js' %}"></script>
-<script src="{% static 'assets/plugins/popper.min.js' %}"></script>
-<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script> 
-<script src="{% static 'assets/js/main.js' %}"></script> 
-{% endblock %}
+        {% comment %}
+        <form class="d-flex">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        {% endcomment %}
+      </div>
+    </div>
+  </nav>
 
-{% block extrascript %}{% endblock %}
+  <main class="container">
+    {% block content %}{% endblock content %}
+  </main>
+
+  <!-- Javascript -->
+  {% block script %}
+  <script src="{% static 'assets/plugins/jquery/jquery-3.6.0.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/popper.min.js' %}"></script>
+  <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.min.js' %}"></script> 
+  <script src="{% static 'assets/js/main.js' %}"></script> 
+  {% endblock %}
+
+  {% block extrascript %}{% endblock %}
 </body>
-
-
 </html> 

@@ -12,6 +12,6 @@ chown -R app:app /home/app
 python manage.py migrate
 python manage.py collectstatic --noinput
 
-exec su -m app -c 'gunicorn hive_sbi_webapp.wsgi -b :8000 \
+exec su -m app -c 'gunicorn hive_sbi_webapp.wsgi -b :8008 \
     --access-logfile /home/app/logs/gunicorn-access.log \
     --error-logfile /home/app/logs/gunicorn.log'

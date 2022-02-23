@@ -8,6 +8,6 @@ services:
       args:
         - DJANGO_ENV=dev
     ports:
-      - "${PORT_DEBUG}:8000"
+      - "${PORT_DEBUG}:8008"
     command: ["sh", "/app/boot_scripts/dev.sh"]
 

@@ -1,21 +1,7 @@
 # hive_sbi_webapp
 
-Basic docs
-
-
-Create virtualenv
-
-~~~
-python3 -m venv env
-~~~
-
-
-python manage.py runserver localhost:8010
-
-
-
-Docker compose deployment
-=========================
+Docker compose  V3.7 deployment
+===============================
 
 
 ### Network
@@ -40,21 +26,48 @@ Example of `.env` file:
 LANG=C.UTF-8
 LC_ALL=C.UTF-8
 
+SECRET_KEY=XXXSecretXKEY
+SBI_API_URL= https://api.steembasicincome.com
 ~~~
 
 
 # DEVELOPMENT ENVIRONMENT
 
-### Build image
+### Build app image
 
 ~~~
-$ PORT_NGINX=5000 PORT_DEBUG=8000 IMAGE_SERVICE=$(basename $PWD) docker-compose --project-directory=$(pwd) -f compose/docker-compose.base.yml -f compose/docker-compose.dev.yml build
+$ PORT_NGINX=5008 PORT_DEBUG=8008 IMAGE_SERVICE=$(basename $PWD) docker-compose --project-directory=$(pwd) -f compose/docker-compose.base.yml -f compose/docker-compose.dev.yml build
 ~~~
 
 ### run service
 
 ~~~
-$ PORT_NGINX=5000 PORT_DEBUG=8000 IMAGE_SERVICE=$(basename $PWD) docker-compose --project-directory=$(pwd) -f compose/docker-compose.base.yml -f compose/docker-compose.dev.yml up
+$ PORT_NGINX=5008 PORT_DEBUG=8008 IMAGE_SERVICE=$(basename $PWD) docker-compose --project-directory=$(pwd) -f compose/docker-compose.base.yml -f compose/docker-compose.dev.yml up
 ~~~
+
+Application will be exposed on port http://localhost:8008 and through NGINX on port http://localhost:5008.
+
+
+# PRODUCTION ENVIRONMENT
+
+### Build app image
+
+~~~
+$ docker build app -t hive_sbi_webapp:0.1.0 --build-arg DJANGO_ENV=prod
+~~~
+
+### run service
+
+~~~
+$ PORT_NGINX=5008 PORT_DEBUG=8008 IMAGE_SERVICE=$(basename $PWD) docker-compose --project-directory=$(pwd) -f compose/docker-compose.base.yml -f compose/docker-compose.prod.yml up
+~~~
+
+Application will be exposed through NGINX on port http://localhost:5008.
+
+
+Docker compose  v2 deployment
+=============================
+
+
 
 

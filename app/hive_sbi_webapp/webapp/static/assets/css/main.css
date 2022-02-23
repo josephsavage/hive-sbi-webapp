@@ -1,0 +1,13 @@
+/* Show it is fixed to the top */
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+}
+
+.padding-top-25px {
+  padding-top: 25px;
+}
+
+.padding-top-15px {
+  padding-top: 15px;
+}

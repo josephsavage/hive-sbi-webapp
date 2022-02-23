@@ -1,0 +1,21 @@
+version: "2"
+services:
+  nginx:
+    extends:
+      file: base.yml
+      service: nginx
+    links:
+      - app
+    ports:
+      - "5008:5008"
+
+  app:
+    extends:
+      file: base.yml
+      service: app
+    environment:
+      - DJANGO_SETTINGS_MODULE=hive_sbi_webapp.settings.prod
+    command: sh ./boot_scripts/app.sh
+    build:
+      args:
+        - DJANGO_ENV=prod

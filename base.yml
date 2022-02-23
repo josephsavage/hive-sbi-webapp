@@ -1,0 +1,16 @@
+version: "2"
+services:
+  nginx:
+    image: nginx:1.19.8
+    volumes:
+      - ./compose/nginx:/etc/nginx/conf.d
+      - ./app:/app
+
+  app:
+    image: hive_sbi_webapp:0.1.0
+    build: ./app
+    restart: on-failure
+    env_file: .env
+    command: sh ./boot_scripts/app.sh
+    ports:
+      - "8008:8008"
