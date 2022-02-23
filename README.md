@@ -59,15 +59,21 @@ $ docker build app -t hive_sbi_webapp:0.1.0 --build-arg DJANGO_ENV=prod
 ### run service
 
 ~~~
-$ PORT_NGINX=5008 PORT_DEBUG=8008 IMAGE_SERVICE=$(basename $PWD) docker-compose --project-directory=$(pwd) -f compose/docker-compose.base.yml -f compose/docker-compose.prod.yml up
+$ PORT_NGINX=5008 PORT_DEBUG=8008 IMAGE_SERVICE=$(basename $PWD) docker-compose --project-directory=$(pwd) -f compose/docker-compose.base.yml -f compose/docker-compose.prod.yml up -d
 ~~~
 
 Application will be exposed through NGINX on port http://localhost:5008.
 
 
-Docker compose  v2 deployment
-=============================
+Docker compose V2 deployment
+============================
 
 
+For Docker versions 18.xx or lower it could be necessary to deploy with compose V2 files.
 
 
+### run service
+
+~~~
+$ docker-compose -f prod.yml up -d
+~~~
