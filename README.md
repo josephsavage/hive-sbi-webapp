@@ -30,6 +30,7 @@ SECRET_KEY=XXXSecretXKEY
 SBI_API_URL= https://api.steembasicincome.com
 ~~~
 
+**Change SECRET_KEY by a long and secure string.**
 
 # DEVELOPMENT ENVIRONMENT
 
