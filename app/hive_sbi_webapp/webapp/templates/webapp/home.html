@@ -1,0 +1,14 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block title %}Homepage{% endblock %}
+
+{% block content %}
+<div class="bg-light p-5 rounded">
+    <h1>Hive - SBI Web app</h1>
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sapien nibh, placerat at faucibus ut, hendrerit vel magna. Suspendisse potenti.</p>
+
+    <a class="btn btn-lg btn-primary" href="{% url 'userinfo_form' %}" role="button">User Info &raquo;</a>
+</div>
+{% endblock %}

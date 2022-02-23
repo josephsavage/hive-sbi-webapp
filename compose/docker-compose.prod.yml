@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  app:
+    image: hive_sbi_webapp:0.1.0
+    build:
+      args:
+        - DJANGO_ENV=prod
+    expose:
+      - "8008"
+    command: ["sh", "/app/boot_scripts/app.sh"]

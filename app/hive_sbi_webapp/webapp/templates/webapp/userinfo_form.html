@@ -1,0 +1,128 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block title %}User Info{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h5 class="text-primary">Get User Info Form</h5>
+  </div>
+  <div class="card-body">
+    <form method="get">
+      <div class="mb-3">
+        <label class="form-label">{{ userinfo_form.user.label_tag }}</label>
+        {{ userinfo_form.user }}
+
+        {% if userinfo_form.user.errors %}
+        <ul class="list-unstyled">
+          {% for error in userinfo_form.user.errors %}
+          <li  class="alert-dismissible fade show alert alert-danger" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+</div>
+
+<div class="padding-top-15px"></div>
+
+{% if user %}
+<div class="row">
+  <div class="col-md-6 col-sm-12">
+    {% if userinfo_hive.success %}
+    <div class="card">
+      <div class="card-header">
+        <h5 class="text-primary">User Info Hive</h5>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ user }}</h5>
+
+        <dl class="row">
+          <dt class="col-sm-4">Shares</dt>
+          <dd class="col-sm-8">{{ userinfo_hive.data.shares }}</dd>
+
+          <dt class="col-sm-4">BonusShares</dt>
+          <dd class="col-sm-8">{{ userinfo_hive.data.bonusShares }}</dd>
+
+          <dt class="col-sm-4">curationRShares</dt>
+          <dd class="col-sm-8">{{ userinfo_hive.data.curationRShares }}</dd>
+
+          <dt class="col-sm-4">delegationRShares</dt>
+          <dd class="col-sm-8">{{ userinfo_hive.data.delegationRShares }}</dd>
+
+          <dt class="col-sm-4">estimateBalanceValue</dt>
+          <dd class="col-sm-8">{{ userinfo_hive.data.estimateBalanceValue }}</dd>
+
+          <dt class="col-sm-4">estimatedNextVote</dt>
+          <dd class="col-sm-8">{{ userinfo_hive.data.estimatedNextVote }}</dd>
+
+          <dt class="col-sm-4">estimateRewarded</dt>
+          <dd class="col-sm-8">{{ userinfo_hive.data.estimateRewarded }}</dd>
+
+          <dt class="col-sm-4">blacklisted</dt>
+          <dd class="col-sm-8">{{ userinfo_hive.data.blacklisted }}</dd>
+       </dl>
+      </div>
+    </div>
+    {% else %}
+    <div class="alert alert-secondary" role="alert">
+      <strong>User Info Hive:</strong> Not information for user <strong>{{ user }}</strong>!<br>
+      {{ userinfo_hive.error }}
+    </div>
+    {% endif %}  
+  </div>
+
+  <div class="col-md-6 col-sm-12">
+    {% if userinfo.success %}
+    <div class="card">
+      <div class="card-header">
+        <h5 class="text-primary">User Info</h5>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{ user }}</h5>
+
+        <dl class="row">
+          <dt class="col-sm-4">Shares</dt>
+          <dd class="col-sm-8">{{ userinfo.data.shares }}</dd>
+
+          <dt class="col-sm-4">BonusShares</dt>
+          <dd class="col-sm-8">{{ userinfo.data.bonusShares }}</dd>
+
+          <dt class="col-sm-4">curationRShares</dt>
+          <dd class="col-sm-8">{{ userinfo.data.curationRShares }}</dd>
+
+          <dt class="col-sm-4">delegationRShares</dt>
+          <dd class="col-sm-8">{{ userinfo.data.delegationRShares }}</dd>
+
+          <dt class="col-sm-4">estimateBalanceValue</dt>
+          <dd class="col-sm-8">{{ userinfo.data.estimateBalanceValue }}</dd>
+
+          <dt class="col-sm-4">estimatedNextVote</dt>
+          <dd class="col-sm-8">{{ userinfo.data.estimatedNextVote }}</dd>
+
+          <dt class="col-sm-4">estimateRewarded</dt>
+          <dd class="col-sm-8">{{ userinfo.data.estimateRewarded }}</dd>
+
+          <dt class="col-sm-4">blacklisted</dt>
+          <dd class="col-sm-8">{{ userinfo.data.blacklisted }}</dd>
+       </dl>
+      </div>
+    </div>
+    {% else %}
+    <div class="alert alert-secondary" role="alert">
+      <strong>User Info:</strong> Not information for user <strong>{{ user }}</strong>!<br>
+      {{ userinfo.error }}
+    </div>
+    {% endif %}
+  </div>
+</div>  
+{% endif %}
+{% endblock %}
