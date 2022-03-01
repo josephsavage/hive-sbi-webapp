@@ -40,7 +40,7 @@
     {% if userinfo_hive.success %}
     <div class="card">
       <div class="card-header">
-        <h5 class="text-primary">User Info Hive</h5>
+        <h5 class="text-primary">Hive User Info</h5>
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ user }}</h5>
@@ -68,7 +68,7 @@
     </div>
     {% else %}
     <div class="alert alert-secondary" role="alert">
-      <strong>User Info Hive:</strong> Not information for user <strong>{{ user }}</strong>!<br>
+      <strong>User Info:</strong> Not information for user <strong>{{ user }}</strong>!<br>
       {{ userinfo_hive.error }}
     </div>
     {% endif %}  
@@ -78,7 +78,7 @@
     {% if userinfo.success %}
     <div class="card">
       <div class="card-header">
-        <h5 class="text-primary">User Info</h5>
+        <h5 class="text-primary">Steem User Info</h5>
       </div>
       <div class="card-body">
         <h5 class="card-title">{{ user }}</h5>
@@ -103,7 +103,7 @@
     </div>
     {% else %}
     <div class="alert alert-secondary" role="alert">
-      <strong>User Info:</strong> Not information for user <strong>{{ user }}</strong>!<br>
+      <strong>Steem User Info:</strong> Not information for user <strong>{{ user }}</strong>!<br>
       {{ userinfo.error }}
     </div>
     {% endif %}
