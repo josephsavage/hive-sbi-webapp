@@ -78,3 +78,4 @@ For Docker versions 18.xx or lower it could be necessary to deploy with compose 
 ~~~
 $ docker-compose -f prod.yml up -d
 ~~~
+
