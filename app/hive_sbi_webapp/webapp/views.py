@@ -89,25 +89,25 @@ class UserInfoForm(BaseMixinView, TemplateView):
             "error": None,
         }
 
-        try:
-            response = requests.get(
-                "{}/getUserInfoHive?user={}".format(settings.SBI_API_URL, user),
-            )
+        #try:
+        response = requests.get(
+            "{}/users/{}/".format(settings.SBI_API_URL_V1, user),
+        )
 
-            userinfo_hive["status_code"] = response.status_code
+        userinfo_hive["status_code"] = response.status_code
 
-            if response.status_code == 200:
-                content = json.loads(response.content.decode("utf-8"))
+        if response.status_code == 200:
+            content = json.loads(response.content.decode("utf-8"))
 
-                userinfo_hive["success"] = content["success"]
+            userinfo_hive["success"] = content["success"]
 
-                if userinfo_hive["success"]:
-                    userinfo_hive["data"] = content["data"]
-                else:
-                    userinfo_hive["error"] = content["error"]
+            if userinfo_hive["success"]:
+                userinfo_hive["data"] = content["data"]
+            else:
+                userinfo_hive["error"] = content["error"]
 
-        except requests.exceptions.ConnectionError:
-            userinfo_hive["error"] = "Connection Error"
+        #except requests.exceptions.ConnectionError:
+        #    userinfo_hive["error"] = "Connection Error"
 
         return userinfo_hive
 

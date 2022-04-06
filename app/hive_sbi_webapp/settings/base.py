@@ -133,3 +133,4 @@ MEDIA_ROOT = 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SBI_API_URL = os.environ.get('SBI_API_URL')
+SBI_API_URL_V1 = os.environ.get('SBI_API_URL_V1')
