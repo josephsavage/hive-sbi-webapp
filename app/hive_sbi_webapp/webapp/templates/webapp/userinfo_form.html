@@ -61,8 +61,10 @@
           <dt class="col-sm-4">estimateRewarded</dt>
           <dd class="col-sm-8">{{ userinfo_hive.data.estimateRewarded }}</dd>
 
+          {% if userinfo_hive.data.skiplisted %}
           <dt class="col-sm-4">Skiplist</dt>
-          <dd class="col-sm-8">{{ userinfo_hive.data.blacklisted }}</dd>
+          <dd class="col-sm-8">{{ userinfo_hive.data.skiplisted }}</dd>
+          {% endif %}
        </dl>
       </div>
     </div>
