@@ -20,8 +20,7 @@ from django.conf.urls import include
 
 from hive_sbi_webapp.webapp.views import (HomeView,
                                           UserInfoForm,
-                                          RichListView,
-                                          RichListHiveView) 
+                                          RichListView) 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -42,12 +41,6 @@ urlpatterns = [
         'richlist/',
         RichListView.as_view(),
         name='richlist',
-    ),
-
-    path(
-        'richlist-hive/',
-        RichListHiveView.as_view(),
-        name='richlist_hive',
     ),
 ]
 

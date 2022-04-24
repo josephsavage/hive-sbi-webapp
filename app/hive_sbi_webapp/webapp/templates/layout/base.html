@@ -29,25 +29,14 @@
             <a class="nav-link {% if active_userinfo %}active{% endif %}" aria-current="page" href="{% url 'userinfo_form' %}">User Info</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="https://docs.hivesbi.com/" target="_blank">Docs</a>
+            <a class="nav-link {% if active_richlist %}active{% endif %}" href="{% url 'richlist' %}">Rich List</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="https://discord.gg/Z5KVQ5whKR" target="_blank">Discord</a>
           </li>
-          {% comment %}
           <li class="nav-item">
-            <a class="nav-link {% if active_richlist %}active{% endif %}" href="{% url 'richlist' %}">Rich List</a>
+            <a class="nav-link" href="https://docs.hivesbi.com/" target="_blank">Documentation</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link  {% if active_richlist_hive %}active{% endif %}" href="{% url 'richlist_hive' %}">Rich List Hive</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="https://discord.gg/5kMDZU9kNF">Discord</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="https://docs.hivesbi.com">Documentation</a>
-          </li>
-          {% endcomment %}
         </ul>
 
         {% comment %}

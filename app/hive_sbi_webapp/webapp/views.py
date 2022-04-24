@@ -127,20 +127,54 @@ class RichListView(BaseMixinView, TemplateView):
     template_name = "webapp/rich_list.html"
 
     def get_richlist(self, **kwargs):
+        LIMIT = 200
+
+        try:
+            offset = int(self.request.GET.get("offset", 0))
+        except ValueError:
+            offset = 0
+
         richlist = {
             "status_code": None,
-            "content": None,
+            "previous": None,
+            "next": None,
+            "active_page_number": None,
+            "prev_page_number": None,
+            "next_page_number": None,
         }
 
         try:
+            params = ""
+            if offset:
+                params = "?offset={}".format(offset)
+
             response = requests.get(
-                "{}/getrichlist".format(settings.SBI_API_URL),
+                "{}/v1/members/{}".format(settings.SBI_API_URL_V1, params),
             )
 
             richlist["status_code"] = response.status_code
 
             if response.status_code == 200:
-                richlist["content"] = response.content
+                content = json.loads(response.content.decode("utf-8"))
+
+                if content["previous"]:
+                    richlist["previous"] = content["previous"].split("?")[1]
+
+                if content["next"]:
+                    richlist["next"] = content["next"].split("?")[1]
+
+                active_page_number = offset / LIMIT + 1
+
+                richlist["active_page_number"] = int(active_page_number)
+                richlist["prev_page_number"] = int(active_page_number - 1)
+
+                if offset + 200 < content["count"]:
+                    richlist["next_page_number"] = int(active_page_number + 1)
+
+
+
+                richlist["results"] = content["results"]
+
         except requests.exceptions.ConnectionError:
             richlist["content"] = "Connection Error"
 
@@ -151,37 +185,5 @@ class RichListView(BaseMixinView, TemplateView):
         context['active_richlist'] = True
 
         context['richlist'] = self.get_richlist()
-
-        return context
-
-
-class RichListHiveView(BaseMixinView, TemplateView):
-    template_name = "webapp/rich_list_hive.html"
-
-    def get_richlist_hive(self, **kwargs):
-        richlist_hive = {
-            "status_code": None,
-            "content": False,
-        }
-
-        try:
-            response = requests.get(
-                "{}/getrichlistHive".format(settings.SBI_API_URL),
-            )
-
-            richlist_hive["status_code"] = response.status_code
-
-            if response.status_code == 200:
-                richlist_hive["content"] = response.content
-        except requests.exceptions.ConnectionError:
-            richlist_hive["content"] = "Connection Error"
-
-        return richlist_hive
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['active_richlist_hive'] = True
-
-        context['richlist_hive'] = self.get_richlist_hive()
 
         return context
