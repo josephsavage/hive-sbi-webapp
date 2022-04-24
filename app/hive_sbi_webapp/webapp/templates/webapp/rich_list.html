@@ -10,8 +10,45 @@
     Richlist
   </div>
   <div class="card-body">
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-end">
+    <nav class="d-flex bd-highlight mb-3">
+      <div class="p-2 bd-highlight">
+        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#orderingModal">Ordering filter</button>
+
+        <div class="modal fade" id="orderingModal" tabindex="-1" aria-labelledby="orderingModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ordering filter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <ul class="list-group">
+                  <li class="list-group-item {% if shares_ascending_active %}active{% endif %}">
+                    <a href="?ordering=shares" class="{% if shares_ascending_active %}text-light{% endif %}">Shares - ascending</a>
+                  </li>
+                  <li class="list-group-item {% if shares_descending_active %}active{% endif %}">
+                    <a href="?ordering=-shares" class="{% if shares_descending_active %}text-light{% endif %}">Shares - descending</a>
+                  </li>
+                  <li class="list-group-item {% if bonus_shares_ascending_active %}active{% endif %}">
+                    <a href="?ordering=bonus_shares" class="{% if bonus_shares_ascending_active %}text-light{% endif %}">Bonus shares - ascending</a>
+                  </li>
+                  <li class="list-group-item {% if bonus_shares_descending_active %}active{% endif %}">
+                    <a href="?ordering=-bonus_shares" class="{% if bonus_shares_descending_active %}text-light{% endif %}">Bonus shares - descending</a>
+                  </li>
+                  <li class="list-group-item {% if estimate_rewarded_ascending_active %}active{% endif %}">
+                    <a href="?ordering=estimate_rewarded" class="{% if estimate_rewarded_ascending_active %}text-light{% endif %}">Estimate rewarded - ascending</a>
+                  </li>
+                  <li class="list-group-item {% if estimate_rewarded_descending_active %}active{% endif %}">
+                    <a href="?ordering=-estimate_rewarded" class="{% if estimate_rewarded_descending_active %}text-light{% endif %}">Estimate rewarded - descending</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul class="pagination ms-auto p-2 bd-highlight">
         <li class="page-item {% if not richlist.previous %}disabled{% endif %}"><a class="page-link" href="?{{ richlist.previous }}">Previous</a></li>
 
         {% if richlist.prev_page_number %}
@@ -43,7 +80,7 @@
         <tbody>
           {% for member in richlist.results %}
           <tr>
-            <td>{{ member.account }}</td>
+            <td><strong>{{ member.account }}</strong></td>
             <td>{{ member.shares }}</td>
             <td>{{ member.bonus_shares }}</td>
             <td>{{ member.pending_balance }}</td>

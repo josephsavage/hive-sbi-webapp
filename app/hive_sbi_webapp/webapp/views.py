@@ -129,6 +129,8 @@ class RichListView(BaseMixinView, TemplateView):
     def get_richlist(self, **kwargs):
         LIMIT = 200
 
+        ordering = self.request.GET.get("ordering", "")
+
         try:
             offset = int(self.request.GET.get("offset", 0))
         except ValueError:
@@ -145,8 +147,16 @@ class RichListView(BaseMixinView, TemplateView):
 
         try:
             params = ""
+
+            if ordering:
+                params = "?ordering={}".format(ordering)
+
             if offset:
-                params = "?offset={}".format(offset)
+                if params:
+                    params = "{}&offset={}".format(params, offset)
+                else:
+                    params = "?offset={}".format(offset)
+
 
             response = requests.get(
                 "{}/v1/members/{}".format(settings.SBI_API_URL_V1, params),
@@ -185,5 +195,27 @@ class RichListView(BaseMixinView, TemplateView):
         context['active_richlist'] = True
 
         context['richlist'] = self.get_richlist()
+
+        context['shares_ascending_active'] = False
+        context['shares_descending_active'] = False
+        context['bonus_shares_ascending_active'] = False
+        context['bonus_shares_descending_active'] = False
+        context['estimate_rewarded_ascending_active'] = False
+        context['estimate_rewarded_descending_active'] = False
+
+        ordering = self.request.GET.get("ordering", "")
+
+        if ordering == "shares":
+            context['shares_ascending_active'] = True
+        if ordering == "-shares":
+            context['shares_descending_active'] = True
+        if ordering == "bonus_shares":
+            context['bonus_shares_ascending_active'] = True
+        if ordering == "-bonus_shares":
+            context['bonus_shares_descending_active'] = True
+        if ordering == "estimate_rewarded":
+            context['estimate_rewarded_ascending_active'] = True
+        if ordering == "-estimate_rewarded":
+            context['estimate_rewarded_descending_active'] = True
 
         return context
