@@ -24,22 +24,22 @@
               <div class="modal-body">
                 <ul class="list-group">
                   <li class="list-group-item {% if shares_ascending_active %}active{% endif %}">
-                    <a href="?ordering=shares" class="{% if shares_ascending_active %}text-light{% endif %}">Shares - ascending</a>
+                    <a href="?ordering=shares" class="{% if shares_ascending_active %}text-light{% endif %}">Units - ascending</a>
                   </li>
                   <li class="list-group-item {% if shares_descending_active %}active{% endif %}">
-                    <a href="?ordering=-shares" class="{% if shares_descending_active %}text-light{% endif %}">Shares - descending</a>
+                    <a href="?ordering=-shares" class="{% if shares_descending_active %}text-light{% endif %}">Units - descending</a>
                   </li>
                   <li class="list-group-item {% if bonus_shares_ascending_active %}active{% endif %}">
-                    <a href="?ordering=bonus_shares" class="{% if bonus_shares_ascending_active %}text-light{% endif %}">Bonus shares - ascending</a>
+                    <a href="?ordering=bonus_shares" class="{% if bonus_shares_ascending_active %}text-light{% endif %}">Bonus units - ascending</a>
                   </li>
                   <li class="list-group-item {% if bonus_shares_descending_active %}active{% endif %}">
-                    <a href="?ordering=-bonus_shares" class="{% if bonus_shares_descending_active %}text-light{% endif %}">Bonus shares - descending</a>
+                    <a href="?ordering=-bonus_shares" class="{% if bonus_shares_descending_active %}text-light{% endif %}">Bonus units - descending</a>
                   </li>
                   <li class="list-group-item {% if estimate_rewarded_ascending_active %}active{% endif %}">
-                    <a href="?ordering=estimate_rewarded" class="{% if estimate_rewarded_ascending_active %}text-light{% endif %}">Estimate rewarded - ascending</a>
+                    <a href="?ordering=estimate_rewarded" class="{% if estimate_rewarded_ascending_active %}text-light{% endif %}">Rewarded estimate - ascending</a>
                   </li>
                   <li class="list-group-item {% if estimate_rewarded_descending_active %}active{% endif %}">
-                    <a href="?ordering=-estimate_rewarded" class="{% if estimate_rewarded_descending_active %}text-light{% endif %}">Estimate rewarded - descending</a>
+                    <a href="?ordering=-estimate_rewarded" class="{% if estimate_rewarded_descending_active %}text-light{% endif %}">Rewarded estimate - descending</a>
                   </li>
                 </ul>
               </div>
@@ -70,11 +70,11 @@
         <thead>
           <tr>
             <th>Account</th>
-            <th>Shares</th>
-            <th>Bonus Shares</th>
-            <th>estimateBalanceValue</th>
-            <th>estimatedNextVote</th>
-            <th>estimateRewarded</th>
+            <th>Units</th>
+            <th>Bonus units</th>
+            <th>Balance value estimate</th>
+            <th>Next vote estimate</th>
+            <th>Rewarded estimate</th>
           </tr>
         </thead>
         <tbody>

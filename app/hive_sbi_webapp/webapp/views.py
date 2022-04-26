@@ -181,8 +181,6 @@ class RichListView(BaseMixinView, TemplateView):
                 if offset + 200 < content["count"]:
                     richlist["next_page_number"] = int(active_page_number + 1)
 
-
-
                 richlist["results"] = content["results"]
 
         except requests.exceptions.ConnectionError:
