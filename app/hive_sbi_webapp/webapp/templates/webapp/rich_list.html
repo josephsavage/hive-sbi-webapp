@@ -6,9 +6,6 @@
 
 {% block content %}
 <div class="card">
-  <div class="card-header">
-    Richlist
-  </div>
   <div class="card-body">
     <nav class="d-flex bd-highlight mb-3">
       <div class="p-2 bd-highlight">
@@ -94,7 +91,7 @@
           <tr>
             <th>Account</th>
             <th>
-              Total units<br>
+              Total units
               <a href="?ordering=total_shares" class="text-decoration-none">
                 {% if total_shares_ascending_active %}
                 <i class="bi bi-arrow-up-circle-fill text-dark"></i>
@@ -111,7 +108,7 @@
               </a>
             </th>
             <th>
-              Units<br>
+              Units
               <a href="?ordering=shares" class="text-decoration-none">
                 {% if shares_ascending_active %}
                 <i class="bi bi-arrow-up-circle-fill text-dark"></i>
@@ -128,7 +125,7 @@
               </a>
             </th>
             <th>
-              Bonus units<br>
+              Bonus units
               <a href="?ordering=bonus_shares" class="text-decoration-none">
                 {% if bonus_shares_ascending_active %}
                 <i class="bi bi-arrow-up-circle-fill text-dark"></i>
@@ -145,7 +142,7 @@
               </a>
             </th>
             <th>
-              Balance value estimate<br>
+              Balance value estimate
               <a href="?ordering=pending_balance" class="text-decoration-none">
                 {% if pending_balance_ascending_active %}
                 <i class="bi bi-arrow-up-circle-fill text-dark"></i>
@@ -162,7 +159,7 @@
               </a>
             </th>
             <th>
-              Next vote estimate<br>
+              Next vote estimate
               <a href="?ordering=next_upvote_estimate" class="text-decoration-none">
                 {% if next_upvote_estimate_ascending_active %}
                 <i class="bi bi-arrow-up-circle-fill text-dark"></i>
@@ -179,7 +176,7 @@
               </a>
             </th>
             <th>
-              Rewarded estimate<br>
+              Rewarded estimate
               <a href="?ordering=estimate_rewarded" class="text-decoration-none">
                 {% if estimate_rewarded_ascending_active %}
                 <i class="bi bi-arrow-up-circle-fill text-dark"></i>
