@@ -213,14 +213,27 @@ class RichListView(BaseMixinView, TemplateView):
             context['total_shares_ascending_active'] = True
         if ordering == "-total_shares":
             context['total_shares_descending_active'] = True
+
         if ordering == "shares":
             context['shares_ascending_active'] = True
         if ordering == "-shares":
             context['shares_descending_active'] = True
+
         if ordering == "bonus_shares":
             context['bonus_shares_ascending_active'] = True
         if ordering == "-bonus_shares":
             context['bonus_shares_descending_active'] = True
+
+        if ordering == "pending_balance":
+            context['pending_balance_ascending_active'] = True
+        if ordering == "-pending_balance":
+            context['pending_balance_descending_active'] = True
+
+        if ordering == "next_upvote_estimate":
+            context['next_upvote_estimate_ascending_active'] = True
+        if ordering == "-next_upvote_estimate":
+            context['next_upvote_estimate_descending_active'] = True
+
         if ordering == "estimate_rewarded":
             context['estimate_rewarded_ascending_active'] = True
         if ordering == "-estimate_rewarded":

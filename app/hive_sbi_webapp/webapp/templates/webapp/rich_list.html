@@ -30,31 +30,34 @@
                     <a href="?ordering=-total_shares" class="{% if total_shares_descending_active %}text-light{% endif %}">Total units - descending</a>
                   </li>
 
-
                   <li class="list-group-item {% if shares_ascending_active %}active{% endif %}">
                     <a href="?ordering=shares" class="{% if shares_ascending_active %}text-light{% endif %}">Units - ascending</a>
                   </li>
                   <li class="list-group-item {% if shares_descending_active %}active{% endif %}">
                     <a href="?ordering=-shares" class="{% if shares_descending_active %}text-light{% endif %}">Units - descending</a>
                   </li>
+
                   <li class="list-group-item {% if bonus_shares_ascending_active %}active{% endif %}">
                     <a href="?ordering=bonus_shares" class="{% if bonus_shares_ascending_active %}text-light{% endif %}">Bonus units - ascending</a>
                   </li>
                   <li class="list-group-item {% if bonus_shares_descending_active %}active{% endif %}">
                     <a href="?ordering=-bonus_shares" class="{% if bonus_shares_descending_active %}text-light{% endif %}">Bonus units - descending</a>
                   </li>
+
                   <li class="list-group-item {% if pending_balance_ascending_active %}active{% endif %}">
                     <a href="?ordering=pending_balance" class="{% if pending_balance_ascending_active %}text-light{% endif %}">Balance value estimate - ascending</a>
                   </li>
                   <li class="list-group-item {% if pending_balance_descending_active %}active{% endif %}">
                     <a href="?ordering=-pending_balance" class="{% if pending_balance_descending_active %}text-light{% endif %}">Balance value estimate - descending</a>
                   </li>
+
                   <li class="list-group-item {% if next_upvote_estimate_ascending_active %}active{% endif %}">
                     <a href="?ordering=next_upvote_estimate" class="{% if next_upvote_estimate_ascending_active %}text-light{% endif %}">Next vote estimate - ascending</a>
                   </li>
                   <li class="list-group-item {% if next_upvote_estimate_descending_active %}active{% endif %}">
                     <a href="?ordering=-next_upvote_estimate" class="{% if next_upvote_estimate_descending_active %}text-light{% endif %}">Next vote estimate - descending</a>
                   </li>
+
                   <li class="list-group-item {% if estimate_rewarded_ascending_active %}active{% endif %}">
                     <a href="?ordering=estimate_rewarded" class="{% if estimate_rewarded_ascending_active %}text-light{% endif %}">Rewarded estimate - ascending</a>
                   </li>
@@ -90,12 +93,108 @@
         <thead>
           <tr>
             <th>Account</th>
-            <th>Total units</th>
-            <th>Units</th>
-            <th>Bonus units</th>
-            <th>Balance value estimate</th>
-            <th>Next vote estimate</th>
-            <th>Rewarded estimate</th>
+            <th>
+              Total units<br>
+              <a href="?ordering=total_shares" class="text-decoration-none">
+                {% if total_shares_ascending_active %}
+                <i class="bi bi-arrow-up-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-up-circle text-dark"></i>
+                {% endif %}
+              </a>
+              <a href="?ordering=-total_shares" class="text-decoration-none">
+                {% if total_shares_descending_active %}
+                <i class="bi bi-arrow-down-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-down-circle text-dark"></i>
+                {% endif %}
+              </a>
+            </th>
+            <th>
+              Units<br>
+              <a href="?ordering=shares" class="text-decoration-none">
+                {% if shares_ascending_active %}
+                <i class="bi bi-arrow-up-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-up-circle text-dark"></i>
+                {% endif %}
+              </a>
+              <a href="?ordering=-shares" class="text-decoration-none">
+                {% if shares_descending_active %}
+                <i class="bi bi-arrow-down-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-down-circle text-dark"></i>
+                {% endif %}
+              </a>
+            </th>
+            <th>
+              Bonus units<br>
+              <a href="?ordering=bonus_shares" class="text-decoration-none">
+                {% if bonus_shares_ascending_active %}
+                <i class="bi bi-arrow-up-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-up-circle text-dark"></i>
+                {% endif %}
+              </a>
+              <a href="?ordering=-bonus_shares" class="text-decoration-none">
+                {% if bonus_shares_descending_active %}
+                <i class="bi bi-arrow-down-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-down-circle text-dark"></i>
+                {% endif %}
+              </a>
+            </th>
+            <th>
+              Balance value estimate<br>
+              <a href="?ordering=pending_balance" class="text-decoration-none">
+                {% if pending_balance_ascending_active %}
+                <i class="bi bi-arrow-up-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-up-circle text-dark"></i>
+                {% endif %}
+              </a>
+              <a href="?ordering=-pending_balance" class="text-decoration-none">
+                {% if pending_balance_descending_active %}
+                <i class="bi bi-arrow-down-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-down-circle text-dark"></i>
+                {% endif %}
+              </a>
+            </th>
+            <th>
+              Next vote estimate<br>
+              <a href="?ordering=next_upvote_estimate" class="text-decoration-none">
+                {% if next_upvote_estimate_ascending_active %}
+                <i class="bi bi-arrow-up-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-up-circle text-dark"></i>
+                {% endif %}
+              </a>
+              <a href="?ordering=-next_upvote_estimate" class="text-decoration-none">
+                {% if next_upvote_estimate_descending_active %}
+                <i class="bi bi-arrow-down-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-down-circle text-dark"></i>
+                {% endif %}
+              </a>
+            </th>
+            <th>
+              Rewarded estimate<br>
+              <a href="?ordering=estimate_rewarded" class="text-decoration-none">
+                {% if estimate_rewarded_ascending_active %}
+                <i class="bi bi-arrow-up-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-up-circle text-dark"></i>
+                {% endif %}
+              </a>
+              <a href="?ordering=-estimate_rewarded" class="text-decoration-none">
+                {% if estimate_rewarded_descending_active %}
+                <i class="bi bi-arrow-down-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-down-circle text-dark"></i>
+                {% endif %}
+              </a>
+            </th>
           </tr>
         </thead>
         <tbody>
