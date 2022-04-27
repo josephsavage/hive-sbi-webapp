@@ -69,7 +69,7 @@
       </div>
 
       <ul class="pagination ms-auto p-2 bd-highlight">
-        <li class="page-item {% if not richlist.previous %}disabled{% endif %}"><a class="page-link" href="?{{ richlist.previous }}">Previous</a></li>
+        <li class="page-item {% if not richlist.previous %}disabled{% endif %}"><a class="page-link text-dark" href="?{{ richlist.previous }}">Previous</a></li>
 
         {% if richlist.prev_page_number %}
         <li class="page-item"><a class="page-link text-dark" href="?{{ richlist.previous }}">{{ richlist.prev_page_number }}</a></li>
