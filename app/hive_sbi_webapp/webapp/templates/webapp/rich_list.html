@@ -35,6 +35,18 @@
                   <li class="list-group-item {% if bonus_shares_descending_active %}active{% endif %}">
                     <a href="?ordering=-bonus_shares" class="{% if bonus_shares_descending_active %}text-light{% endif %}">Bonus units - descending</a>
                   </li>
+                  <li class="list-group-item {% if pending_balance_ascending_active %}active{% endif %}">
+                    <a href="?ordering=pending_balance" class="{% if pending_balance_ascending_active %}text-light{% endif %}">Balance value estimate - ascending</a>
+                  </li>
+                  <li class="list-group-item {% if pending_balance_descending_active %}active{% endif %}">
+                    <a href="?ordering=-pending_balance" class="{% if pending_balance_descending_active %}text-light{% endif %}">Balance value estimate - descending</a>
+                  </li>
+                  <li class="list-group-item {% if next_upvote_estimate_ascending_active %}active{% endif %}">
+                    <a href="?ordering=next_upvote_estimate" class="{% if next_upvote_estimate_ascending_active %}text-light{% endif %}">Next vote estimate - ascending</a>
+                  </li>
+                  <li class="list-group-item {% if next_upvote_estimate_descending_active %}active{% endif %}">
+                    <a href="?ordering=-next_upvote_estimate" class="{% if next_upvote_estimate_descending_active %}text-light{% endif %}">Next vote estimate - descending</a>
+                  </li>
                   <li class="list-group-item {% if estimate_rewarded_ascending_active %}active{% endif %}">
                     <a href="?ordering=estimate_rewarded" class="{% if estimate_rewarded_ascending_active %}text-light{% endif %}">Rewarded estimate - ascending</a>
                   </li>
@@ -70,6 +82,7 @@
         <thead>
           <tr>
             <th>Account</th>
+            <th>Total units</th>
             <th>Units</th>
             <th>Bonus units</th>
             <th>Balance value estimate</th>
@@ -81,6 +94,7 @@
           {% for member in richlist.results %}
           <tr>
             <td><strong>{{ member.account }}</strong></td>
+            <td>{{ member.total_shares }}</td>
             <td>{{ member.shares }}</td>
             <td>{{ member.bonus_shares }}</td>
             <td>{{ member.pending_balance }}</td>

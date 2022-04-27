@@ -198,6 +198,10 @@ class RichListView(BaseMixinView, TemplateView):
         context['shares_descending_active'] = False
         context['bonus_shares_ascending_active'] = False
         context['bonus_shares_descending_active'] = False
+        context['pending_balance_ascending_active'] = False
+        context['pending_balance_descending_active'] = False
+        context['next_upvote_estimate_ascending_active'] = False
+        context['next_upvote_estimate_descending_active'] = False
         context['estimate_rewarded_ascending_active'] = False
         context['estimate_rewarded_descending_active'] = False
 
