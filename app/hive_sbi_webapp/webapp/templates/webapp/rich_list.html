@@ -23,6 +23,14 @@
               </div>
               <div class="modal-body">
                 <ul class="list-group">
+                  <li class="list-group-item {% if total_shares_ascending_active %}active{% endif %}">
+                    <a href="?ordering=total_shares" class="{% if total_shares_ascending_active %}text-light{% endif %}">Total units - ascending</a>
+                  </li>
+                  <li class="list-group-item {% if total_shares_descending_active %}active{% endif %}">
+                    <a href="?ordering=-total_shares" class="{% if total_shares_descending_active %}text-light{% endif %}">Total units - descending</a>
+                  </li>
+
+
                   <li class="list-group-item {% if shares_ascending_active %}active{% endif %}">
                     <a href="?ordering=shares" class="{% if shares_ascending_active %}text-light{% endif %}">Units - ascending</a>
                   </li>

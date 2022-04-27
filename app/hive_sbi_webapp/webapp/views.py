@@ -194,6 +194,8 @@ class RichListView(BaseMixinView, TemplateView):
 
         context['richlist'] = self.get_richlist()
 
+        context['total_shares_ascending_active'] = False
+        context['total_shares_descending_active'] = False
         context['shares_ascending_active'] = False
         context['shares_descending_active'] = False
         context['bonus_shares_ascending_active'] = False
@@ -207,6 +209,10 @@ class RichListView(BaseMixinView, TemplateView):
 
         ordering = self.request.GET.get("ordering", "")
 
+        if ordering == "total_shares":
+            context['total_shares_ascending_active'] = True
+        if ordering == "-total_shares":
+            context['total_shares_descending_active'] = True
         if ordering == "shares":
             context['shares_ascending_active'] = True
         if ordering == "-shares":
