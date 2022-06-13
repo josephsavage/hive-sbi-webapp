@@ -1,6 +1,6 @@
 {% extends 'layout/base.html' %}
 
-{% load static %}
+{% load static custom_tags %}
 
 {% block title %}Transaction history{% endblock %}
 
@@ -75,13 +75,11 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Source</th>
             <th>Memo</th>
             <th>Account</th>
             <th>Sponsor</th>
             <th>Sponsees</th>
             <th>Shares</th>
-            <th>Vests</th>
             <th>Timestamp</th>
             <th>Status</th>
             <th>Share type</th>
@@ -90,8 +88,7 @@
         <tbody>
           {% for trx in trx_list.results %}
           <tr>
-            <td>{{ trx.source }}</td>
-            <td>{{ trx.memo }}</td>
+            <td style="width: 30%">{{ trx.memo }}</td>
             <td>{{ trx.account }}</td>
             <td>{{ trx.sponsor }}</td>
             <td>
@@ -100,8 +97,10 @@
               {% endfor %}
             </td>
             <td>{{ trx.shares }}</td>
-            <td>{{ trx.vests }}</td>
-            <td>{{ trx.timestamp }}</td>
+            <td>
+              {% timestamp_to_datetime trx.timestamp as timestamp %}
+              {{ timestamp }}
+            </td>
             <td>{{ trx.status }}</td>
             <td>{{ trx.share_type }}</td>
           </tr>
