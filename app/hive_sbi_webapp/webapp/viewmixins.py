@@ -7,6 +7,6 @@ class BaseMixinView(View):
         context['active_home'] = False
         context['active_userinfo'] = False
         context['active_richlist'] = False
-        context['active_richlist_hive'] = False
+        context['active_transaction_history'] = False
 
         return context

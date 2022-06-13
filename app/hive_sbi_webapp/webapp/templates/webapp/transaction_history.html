@@ -1,0 +1,118 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+
+{% block title %}Transaction history{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h5 class="text-dark">Transaction history</h5>
+  </div>
+
+  <div class="card-body">
+    <form method="get">
+      <div class="mb-3">
+        <label class="form-label">{{ userinfo_form.user.label_tag }}</label>
+        {{ userinfo_form.user }}
+
+        {% if userinfo_form.user.errors %}
+        <ul class="list-unstyled">
+          {% for error in userinfo_form.user.errors %}
+          <li  class="alert-dismissible fade show alert alert-danger" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn btn-dark">Search</button>
+    </form>
+
+  {% if user %}
+    <br>
+
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link {% if active_enrolled_hive_sbi %}active bg-dark{% else %}text-secondary{% endif %}" href="{% url 'enrolled_hive_sbi' %}?user={{ user }}">Enrolled Hive SBI</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if active_sponsored_hive_sbi %}active bg-dark{% else %}text-secondary{% endif %}" href="{% url 'sponsored_hive_sbi' %}?user={{ user }}">Sponsored Hive SBI</a>
+      </li>
+    </ul>
+
+    <br>
+    <nav class="d-flex bd-highlight mb-3">
+      <div class="p-2 bd-highlight">
+        <h3>{{ user }}</h3>
+      </div>
+
+      <ul class="pagination ms-auto p-2 bd-highlight">
+        <li class="page-item {% if not trx_list.previous %}disabled{% endif %}">
+          <a class="page-link {% if trx_list.previous %}text-dark{% else %}text-muted{% endif %}" href="?{{ trx_list.previous }}">Previous</a>
+        </li>
+
+        {% if trx_list.prev_page_number %}
+        <li class="page-item"><a class="page-link text-dark" href="?{{ trx_list.previous }}">{{ trx_list.prev_page_number }}</a></li>
+        {% endif %}
+
+        <li class="page-item active"><a class="page-link bg-dark" style="border-color:black;" href="#">{{ trx_list.active_page_number }}</a></li>
+
+        {% if trx_list.next_page_number %}
+        <li class="page-item"><a class="page-link text-dark" href="?{{ trx_list.next }}">{{ trx_list.next_page_number }}</a></li>
+        {% endif %}
+
+        <li class="page-item {% if not trx_list.next %}disabled{% endif %}">
+          <a class="page-link {% if trx_list.next %}text-dark{% else %}text-muted{% endif %}" href="?{{ trx_list.next }}">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+    {% if trx_list.results %}
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Source</th>
+            <th>Memo</th>
+            <th>Account</th>
+            <th>Sponsor</th>
+            <th>Sponsees</th>
+            <th>Shares</th>
+            <th>Vests</th>
+            <th>Timestamp</th>
+            <th>Status</th>
+            <th>Share type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for trx in trx_list.results %}
+          <tr>
+            <td>{{ trx.source }}</td>
+            <td>{{ trx.memo }}</td>
+            <td>{{ trx.account }}</td>
+            <td>{{ trx.sponsor }}</td>
+            <td>
+              {% for sponsee in trx.sponsees %}
+              <p>{{ sponsee.account }}: {{ sponsee.units }}</p>
+              {% endfor %}
+            </td>
+            <td>{{ trx.shares }}</td>
+            <td>{{ trx.vests }}</td>
+            <td>{{ trx.timestamp }}</td>
+            <td>{{ trx.status }}</td>
+            <td>{{ trx.share_type }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p>No transaction history for <strong>{{ user }}</strong>.</p>
+    {% endif %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}

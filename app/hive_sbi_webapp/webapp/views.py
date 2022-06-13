@@ -3,6 +3,7 @@ import logging
 import requests
 
 from django.conf import settings
+from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
 from .viewmixins import BaseMixinView
@@ -85,7 +86,7 @@ class UserInfoForm(BaseMixinView, TemplateView):
         userinfo_hive = {
             "status_code": None,
             "success": False,
-            "data": None,        
+            "data": None,
             "error": None,
         }
 
@@ -156,7 +157,6 @@ class RichListView(BaseMixinView, TemplateView):
                     params = "{}&offset={}".format(params, offset)
                 else:
                     params = "?offset={}".format(offset)
-
 
             response = requests.get(
                 "{}/v1/members/{}".format(settings.SBI_API_URL_V1, params),
@@ -238,5 +238,186 @@ class RichListView(BaseMixinView, TemplateView):
             context['estimate_rewarded_ascending_active'] = True
         if ordering == "-estimate_rewarded":
             context['estimate_rewarded_descending_active'] = True
+
+        return context
+
+
+class TransactionHistory(BaseMixinView, TemplateView):
+    template_name = "webapp/transaction_history.html"
+
+    def get_user(self, **kwargs):
+        return self.request.GET.get('user')
+
+    def get_userinfo_form(self, **kwargs):
+        user = self.get_user()
+
+        initial = {}
+
+        if user:
+            initial = {'user': user}
+
+        return UseInfoForm(initial=initial)
+
+    def get(self, request, *args, **kwargs):
+        if self.get_user():
+            response = redirect('enrolled_hive_sbi')
+            response['Location'] += '?user={}'.format(self.get_user())
+
+            return response
+
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active_transaction_history'] = True
+        context['active_enrolled_hive_sbi'] = False
+        context['active_sponsored_hive_sbi'] = False
+
+        context['userinfo_form'] = self.get_userinfo_form()
+        context['user'] = self.get_user()
+
+        return context
+
+
+class EnrolledHiveSBI(TransactionHistory):
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+    def get_enrolled_hive_sbi(self, **kwargs):
+        LIMIT = 200
+
+        try:
+            offset = int(self.request.GET.get("offset", 0))
+        except ValueError:
+            offset = 0
+
+        enrolled_hive_sbi = {
+            "status_code": None,
+            "previous": None,
+            "next": None,
+            "active_page_number": None,
+            "prev_page_number": None,
+            "next_page_number": None,
+        }
+
+        try:
+            params = "?account={}".format(self.get_user())
+
+            if offset:
+                if params:
+                    params = "{}&offset={}".format(params, offset)
+                else:
+                    params = "?offset={}".format(offset)
+
+            response = requests.get(
+                "{}/v1/transactions/{}".format(settings.SBI_API_URL_V1, params),
+            )
+
+            enrolled_hive_sbi["status_code"] = response.status_code
+
+            if response.status_code == 200:
+                content = json.loads(response.content.decode("utf-8"))
+
+                if content["previous"]:
+                    enrolled_hive_sbi["previous"] = content["previous"].split(
+                        "?")[1].replace('account=', 'user=')
+
+                if content["next"]:
+                    enrolled_hive_sbi["next"] = content["next"].split(
+                        "?")[1].replace('account=', 'user=')
+
+                active_page_number = offset / LIMIT + 1
+
+                enrolled_hive_sbi["active_page_number"] = int(active_page_number)
+                enrolled_hive_sbi["prev_page_number"] = int(active_page_number - 1)
+
+                if offset + 200 < content["count"]:
+                    enrolled_hive_sbi["next_page_number"] = int(active_page_number + 1)
+
+                enrolled_hive_sbi["results"] = content["results"]
+
+        except requests.exceptions.ConnectionError:
+            enrolled_hive_sbi["content"] = "Connection Error"
+
+        return enrolled_hive_sbi
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active_enrolled_hive_sbi'] = True
+
+        context['trx_list'] = self.get_enrolled_hive_sbi()
+
+        return context
+
+
+class SponsoredHiveSBI(TransactionHistory):
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
+
+    def get_sponsored_hive_sbi(self, **kwargs):
+        LIMIT = 200
+
+        try:
+            offset = int(self.request.GET.get("offset", 0))
+        except ValueError:
+            offset = 0
+
+        sponsored_hive_sbi = {
+            "status_code": None,
+            "previous": None,
+            "next": None,
+            "active_page_number": None,
+            "prev_page_number": None,
+            "next_page_number": None,
+        }
+
+        try:
+            params = "?sponsee={}".format(self.get_user())
+
+            if offset:
+                if params:
+                    params = "{}&offset={}".format(params, offset)
+                else:
+                    params = "?offset={}".format(offset)
+
+            response = requests.get(
+                "{}/v1/transactions/{}".format(settings.SBI_API_URL_V1, params),
+            )
+
+            sponsored_hive_sbi["status_code"] = response.status_code
+
+            if response.status_code == 200:
+                content = json.loads(response.content.decode("utf-8"))
+
+                if content["previous"]:
+                    sponsored_hive_sbi["previous"] = content["previous"].split(
+                        "?")[1].replace('sponsee=', 'user=')
+
+                if content["next"]:
+                    sponsored_hive_sbi["next"] = content["next"].split(
+                        "?")[1].replace('sponsee=', 'user=')
+
+                active_page_number = offset / LIMIT + 1
+
+                sponsored_hive_sbi["active_page_number"] = int(active_page_number)
+                sponsored_hive_sbi["prev_page_number"] = int(active_page_number - 1)
+
+                if offset + 200 < content["count"]:
+                    sponsored_hive_sbi["next_page_number"] = int(active_page_number + 1)
+
+                sponsored_hive_sbi["results"] = content["results"]
+
+        except requests.exceptions.ConnectionError:
+            sponsored_hive_sbi["content"] = "Connection Error"
+
+        return sponsored_hive_sbi
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active_sponsored_hive_sbi'] = True
+
+        context['trx_list'] = self.get_sponsored_hive_sbi()
 
         return context
