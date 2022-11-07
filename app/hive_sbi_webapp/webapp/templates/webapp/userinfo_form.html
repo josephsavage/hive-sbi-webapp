@@ -35,6 +35,9 @@
 <div class="padding-top-15px"></div>
 
 {% if user %}
+<a href="{% url 'enrolled_hive_sbi' %}?user={{ user }}" class="btn btn-outline-dark btn-sm">Transaction history</a>
+<div class="padding-top-15px"></div>
+
 <div class="row">
   <div class="col-md-6 col-sm-12">
     {% if userinfo_hive.success %}
