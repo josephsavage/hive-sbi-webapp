@@ -1,0 +1,106 @@
+{% extends 'layout/base.html' %}
+
+{% load static custom_tags %}
+
+{% block title %}Delivered votes{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <h5 class="text-dark">Delivered votes</h5>
+  </div>
+
+  <div class="card-body">
+    <form method="get">
+      <div class="mb-3">
+        <label class="form-label">{{ userinfo_form.user.label_tag }}</label>
+        {{ userinfo_form.user }}
+
+        {% if userinfo_form.user.errors %}
+        <ul class="list-unstyled">
+          {% for error in userinfo_form.user.errors %}
+          <li  class="alert-dismissible fade show alert alert-danger" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+
+      <button type="submit" class="btn btn-dark">Search</button>
+    </form>
+
+    {% if posts.results %}
+    <br>
+    <nav class="d-flex bd-highlight mb-3">
+      {% if user %}
+      <div class="p-2 bd-highlight">
+        <h3>{{ user }}</h3>
+      </div>
+      {% endif %}
+
+      <ul class="pagination ms-auto p-2 bd-highlight">
+        <li class="page-item {% if not posts.previous %}disabled{% endif %}">
+          <a class="page-link {% if posts.previous %}text-dark{% else %}text-muted{% endif %}" href="?{{ posts.previous }}">Previous</a>
+        </li>
+
+        {% if posts.prev_page_number %}
+        <li class="page-item"><a class="page-link text-dark" href="?{{ posts.previous }}">{{ posts.prev_page_number }}</a></li>
+        {% endif %}
+
+        <li class="page-item active"><a class="page-link bg-dark" style="border-color:black;" href="#">{{ posts.active_page_number }}</a></li>
+
+        {% if posts.next_page_number %}
+        <li class="page-item"><a class="page-link text-dark" href="?{{ posts.next }}">{{ posts.next_page_number }}</a></li>
+        {% endif %}
+
+        <li class="page-item {% if not posts.next %}disabled{% endif %}">
+          <a class="page-link {% if posts.next %}text-dark{% else %}text-muted{% endif %}" href="?{{ posts.next }}">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            {% if not user %}
+            <th>Author</th>
+            {% endif %}
+            <th>Title</th>
+            <th>HP received</th>
+            <th>Hive received</th>
+            <th>HBD received</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for post in posts.results %}
+          <tr>
+            <td style="width: 20%">{% timestamp_to_datetime post.created as created %}{{ created }}</td>
+            {% if not user %}
+            <td>{{ post.author }}</td>
+            {% endif %}
+            <td>{{ post.title }}</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>
+              <a href="https://peakd.com/@{{ post.author}}/{{ post.permlink }}" target="_blank">
+                <i class="bi bi-box-arrow-up-right"></i>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <br>
+    <p>No delivered votes for <strong>{{ user }}</strong>.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
