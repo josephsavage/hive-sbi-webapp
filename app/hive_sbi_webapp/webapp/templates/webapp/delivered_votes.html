@@ -78,18 +78,18 @@
         </thead>
         <tbody>
           {% for post in posts.results %}
-          <tr>
+          <tr data-title="{{ post.title }}">
             <td style="width: 20%">{% timestamp_to_datetime post.created as created %}{{ created }}</td>
             {% if not user %}
             <td>{{ post.author }}</td>
             {% endif %}
-            <td>{{ post.title }}</td>
+            <td><a href="https://peakd.com/@{{ post.author}}/{{ post.permlink }}" target="_blank">{{ post.title }}</a></td>
             <td>?</td>
             <td>?</td>
             <td>?</td>
             <td>
-              <a href="https://peakd.com/@{{ post.author}}/{{ post.permlink }}" target="_blank">
-                <i class="bi bi-box-arrow-up-right"></i>
+              <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deliveredVotesModal" class="delivered_votes_modal_link">
+                <i class="bi bi-card-list"></i>
               </a>
             </td>
           </tr>
@@ -97,10 +97,31 @@
         </tbody>
       </table>
     </div>
+
+    <div class="modal fade" id="deliveredVotesModal" tabindex="-1" aria-labelledby="deliveredVotesModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deliveredVotesModalLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Pending....
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
     {% else %}
     <br>
     <p>No delivered votes for <strong>{{ user }}</strong>.</p>
     {% endif %}
   </div>
 </div>
+{% endblock %}
+
+{% block extrascript %}
+<script src="{% static 'assets/js/delivered_votes.js' %}"></script>
 {% endblock %}
