@@ -23,7 +23,8 @@ from hive_sbi_webapp.webapp.views import (HomeView,
                                           RichListView,
                                           TransactionHistory,
                                           EnrolledHiveSBI,
-                                          SponsoredHiveSBI)
+                                          SponsoredHiveSBI,
+                                          DeliveredVotesView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -62,6 +63,12 @@ urlpatterns = [
         'transaction-history/sponsored-hive-SBI/',
         SponsoredHiveSBI.as_view(),
         name='sponsored_hive_sbi',
+    ),
+
+    path(
+        'delivered-votes/',
+        DeliveredVotesView.as_view(),
+        name='delivered_votes',
     ),
 ]
 

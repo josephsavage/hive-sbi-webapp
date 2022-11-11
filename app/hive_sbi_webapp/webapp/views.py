@@ -421,3 +421,92 @@ class SponsoredHiveSBI(TransactionHistory):
         context['trx_list'] = self.get_sponsored_hive_sbi()
 
         return context
+
+
+class DeliveredVotesView(BaseMixinView, TemplateView):
+    template_name = "webapp/delivered_votes.html"
+
+    def get_user(self, **kwargs):
+        return self.request.GET.get('user')
+
+    def get_userinfo_form(self, **kwargs):
+        user = self.get_user()
+
+        initial = {}
+
+        if user:
+            initial = {'user': user}
+
+        return UseInfoForm(initial=initial)
+
+    def get_posts(self, **kwargs):
+        LIMIT = 200
+
+        try:
+            offset = int(self.request.GET.get("offset", 0))
+        except ValueError:
+            offset = 0
+
+        posts = {
+            "status_code": None,
+            "previous": None,
+            "next": None,
+            "active_page_number": None,
+            "prev_page_number": None,
+            "next_page_number": None,
+        }
+
+        try:
+            params = "?ordering=-created"
+            if self.get_user():
+                params = "{}&author={}".format(params, self.get_user())
+
+            if offset:
+                if params:
+                    params = "{}&offset={}".format(params, offset)
+                else:
+                    params = "?offset={}".format(offset)
+
+            response = requests.get(
+                "{}/v1/posts/{}".format(settings.SBI_API_URL_V1, params),
+            )
+
+            posts["status_code"] = response.status_code
+
+            if response.status_code == 200:
+                content = json.loads(response.content.decode("utf-8"))
+
+                if content["previous"]:
+                    posts["previous"] = content["previous"].split(
+                        "?")[1].replace('account=', 'author=')
+
+                if content["next"]:
+                    posts["next"] = content["next"].split(
+                        "?")[1].replace('account=', 'author=')
+
+                active_page_number = offset / LIMIT + 1
+
+                posts["active_page_number"] = int(active_page_number)
+                posts["prev_page_number"] = int(active_page_number - 1)
+
+                if offset + 200 < content["count"]:
+                    posts["next_page_number"] = int(active_page_number + 1)
+
+                posts["results"] = content["results"]
+
+        except requests.exceptions.ConnectionError:
+            posts["content"] = "Connection Error"
+
+        return posts
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['active_transaction_history'] = False
+        context['active_enrolled_hive_sbi'] = False
+        context['active_sponsored_hive_sbi'] = False
+
+        context['userinfo_form'] = self.get_userinfo_form()
+        context['user'] = self.get_user()
+        context['posts'] = self.get_posts()
+
+        return context
