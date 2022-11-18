@@ -71,21 +71,26 @@
             {% endif %}
             <th>Title</th>
             <th>HP received</th>
-            <th>Hive received</th>
+
+            {% comment %}<th>Hive received</th>{% endcomment %}
+
             <th>HBD received</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           {% for post in posts.results %}
-          <tr data-title="{{ post.title }}">
+          {% string_to_json post.vote_set as post_votes %}
+          <tr data-title="{{ post.title }}" data-post-votes="{{ post_votes }}">
             <td style="width: 20%">{% timestamp_to_datetime post.created as created %}{{ created }}</td>
             {% if not user %}
             <td>{{ post.author }}</td>
             {% endif %}
             <td><a href="https://peakd.com/@{{ post.author}}/{{ post.permlink }}" target="_blank">{{ post.title }}</a></td>
-            <td>?</td>
-            <td>?</td>
+            <td>{{ post.hive_power_rewards }}</td>
+
+            {% comment %}<td>?</td>{% endcomment %}
+
             <td>{{ post.hbd_rewards }}</td>
             <td>
               <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deliveredVotesModal" class="delivered_votes_modal_link">
@@ -99,14 +104,25 @@
     </div>
 
     <div class="modal fade" id="deliveredVotesModal" tabindex="-1" aria-labelledby="deliveredVotesModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="deliveredVotesModalLabel">Modal title</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            Pending....
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Voter</th>
+                    <th>HP received</th>
+                    <th>HBD received</th>
+                  </tr>
+                </thead>
+                <tbody id="idPostVotesTBody"></tbody>
+              </table>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
