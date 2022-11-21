@@ -36,9 +36,8 @@
 
 {% if user %}
 <a href="{% url 'enrolled_hive_sbi' %}?user={{ user }}" class="btn btn-outline-dark btn-sm">Transaction history</a>
-{% comment %}
 <a href="{% url 'delivered_votes' %}?user={{ user }}" class="btn btn-outline-dark btn-sm">Delivered votes</a>
-{% endcomment %}
+
 <div class="padding-top-15px"></div>
 
 <div class="row">
