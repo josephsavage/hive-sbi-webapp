@@ -442,6 +442,8 @@ class DeliveredVotesView(BaseMixinView, TemplateView):
     def get_posts(self, **kwargs):
         LIMIT = 200
 
+        ordering = self.request.GET.get("ordering", "")
+
         try:
             offset = int(self.request.GET.get("offset", 0))
         except ValueError:
@@ -457,7 +459,11 @@ class DeliveredVotesView(BaseMixinView, TemplateView):
         }
 
         try:
-            params = "?ordering=-created"
+            if ordering:
+                params = "?ordering={}".format(ordering)
+            else:
+                params = "?ordering=-created"
+
             if self.get_user():
                 params = "{}&author={}".format(params, self.get_user())
 
@@ -508,5 +514,16 @@ class DeliveredVotesView(BaseMixinView, TemplateView):
         context['userinfo_form'] = self.get_userinfo_form()
         context['user'] = self.get_user()
         context['posts'] = self.get_posts()
+
+        ordering = self.request.GET.get("ordering", "")
+
+        if not ordering:
+            context['created_descending_active'] = True
+
+        if ordering == "created":
+            context['created_ascending_active'] = True
+        if ordering == "-created":
+            context['created_descending_active'] = True
+
 
         return context
