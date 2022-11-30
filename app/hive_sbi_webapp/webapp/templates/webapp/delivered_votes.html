@@ -65,7 +65,24 @@
       <table class="table">
         <thead>
           <tr>
-            <th>Date</th>
+            <th>
+              Date
+
+              <a href="{% if user %}?ordering=created&user={{user}}{% else %}?ordering=created{% endif %}" class="text-decoration-none">
+                {% if created_ascending_active %}
+                <i class="bi bi-arrow-up-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-up-circle text-dark"></i>
+                {% endif %}
+              </a>
+              <a href="{% if user %}?ordering=-created&user={{user}}{% else %}?ordering=-created{% endif %}" class="text-decoration-none">
+                {% if created_descending_active %}
+                <i class="bi bi-arrow-down-circle-fill text-dark"></i>
+                {% else %}
+                <i class="bi bi-arrow-down-circle text-dark"></i>
+                {% endif %}
+              </a>
+            </th>
             {% if not user %}
             <th>Author</th>
             {% endif %}
@@ -94,7 +111,7 @@
             <td>{{ post.hbd_rewards }}</td>
             <td>
               <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#deliveredVotesModal" class="delivered_votes_modal_link">
-                <i class="bi bi-card-list"></i>
+                <i class="bi bi-arrows-fullscreen"></i>
               </a>
             </td>
           </tr>
