@@ -427,7 +427,10 @@ class DeliveredVotesView(BaseMixinView, TemplateView):
     template_name = "webapp/delivered_votes.html"
 
     def get_user(self, **kwargs):
-        return self.request.GET.get('user')
+        if self.request.GET.get('user'):
+            return self.request.GET.get('user')
+
+        return self.request.GET.get('author')
 
     def get_userinfo_form(self, **kwargs):
         user = self.get_user()
