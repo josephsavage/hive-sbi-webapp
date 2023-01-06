@@ -103,7 +103,7 @@
             {% if not user %}
             <td>{{ post.author }}</td>
             {% endif %}
-            <td><a href="https://peakd.com/@{{ post.author}}/{{ post.permlink }}" target="_blank">{{ post.title }}</a></td>
+            <td><a href="https://peakd.com/@{{ post.author}}/{{ post.permlink }}" target="_blank">{% if post.title %}{{ post.title }}{% else %}{{ post.permlink }}{% endif %}</a></td>
             <td>{{ post.hive_power_rewards }}</td>
 
             {% comment %}<td>?</td>{% endcomment %}
