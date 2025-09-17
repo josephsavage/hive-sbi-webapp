@@ -5,6 +5,12 @@ import requests
 from django.conf import settings
 from django.shortcuts import redirect
 from django.views.generic import TemplateView
+from django.shortcuts import render
+from .utils.metabase import signed_dashboard_url
+
+def rich_list(request):
+    iframe_url = signed_dashboard_url(2)  # replace with your actual dashboard ID
+    return render(request, "rich_list.html", {"iframe_url": iframe_url})
 
 from .viewmixins import BaseMixinView
 from .forms import UseInfoForm
