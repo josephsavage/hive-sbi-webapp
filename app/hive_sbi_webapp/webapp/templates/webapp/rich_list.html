@@ -1,15 +1,7 @@
-{% extends 'layout/base.html' %}
-
-{% load static %}
-
-{% block title %}Dashboards{% endblock %}
-
-{% block content %}
-iframe(
-    src=iframeUrl
-    frameborder="0"
-    width="800"
-    height="600"
-    allowtransparency
-)
-{% endblock %}
+<iframe
+  src="{{ iframe_url }}"
+  frameborder="0"
+  width="100%"
+  height="800"
+  allowtransparency="true">
+</iframe>
