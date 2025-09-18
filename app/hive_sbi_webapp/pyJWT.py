@@ -2,9 +2,6 @@ import time, jwt
 from django.conf import settings
 from django.http import HttpResponse
 
-METABASE_SITE_URL = "https://your-metabase-server"
-METABASE_SECRET_KEY = "your-metabase-secret-key"
-
 def signed_dashboard_url(dashboard_id, params=None):
     payload = {
         "resource": {"dashboard": dashboard_id},
@@ -16,6 +13,6 @@ def signed_dashboard_url(dashboard_id, params=None):
 
 def dashboard_view(request):
     # Example: lock the filter to the logged-in user’s account
-    url = signed_dashboard_url(5, {"account": request.user.username})
+    url = signed_dashboard_url(2, {"account": request.user.username})
     iframe = f'<iframe src="{url}" width="100%" height="800" frameborder="0"></iframe>'
     return HttpResponse(iframe)
