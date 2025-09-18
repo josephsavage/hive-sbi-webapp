@@ -1,13 +1,14 @@
-{% extends "base.html" %}
+{% extends "layout/base.html" %}
+
+{% block title %}Richlist{% endblock %}
+
 {% block content %}
-  <main class="container">
-    <iframe
-      src="{{ iframe_url }}"
-      frameborder="0"
-      width="100%"
-      height="800"
-      allowtransparency="true"
-      style="border:none;">
-    </iframe>
-  </main>
+  <iframe
+    src="{{ iframe_url }}"
+    frameborder="0"
+    width="100%"
+    height="800"
+    allowtransparency="true"
+    style="border:none;">
+  </iframe>
 {% endblock %}
