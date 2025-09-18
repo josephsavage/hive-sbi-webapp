@@ -12,9 +12,15 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
+
+# Now available everywhere
+METABASE_SITE_URL = os.getenv("METABASE_SITE_URL")
+METABASE_SECRET_KEY = os.getenv("METABASE_SECRET_KEY")
 
 
 # Quick-start development settings - unsuitable for production
