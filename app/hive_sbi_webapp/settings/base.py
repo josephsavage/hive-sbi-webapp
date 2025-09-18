@@ -54,7 +54,7 @@ INSTALLED_APPS = [
 ] + INSTALLED_APPS
 
 INSTALLED_APPS = [
-    'hive_sbi_webapp.webapp',
+    'hive_sbi_webapp.app',
 ]  + INSTALLED_APPS
 
 MIDDLEWARE = [
