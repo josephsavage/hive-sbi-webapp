@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls import include
 
-from hive_sbi_webapp.webapp.views import (HomeView,
+from hive_sbi_webapp.app.views import (HomeView,
                                           UserInfoForm,
                                           RichListView,
                                           TransactionHistory,
