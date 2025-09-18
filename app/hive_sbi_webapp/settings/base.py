@@ -18,6 +18,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
+IFRAME_URL = os.getenv("IFRAME_URL")
+
 # Now available everywhere
 METABASE_SITE_URL = os.getenv("METABASE_SITE_URL")
 METABASE_SECRET_KEY = os.getenv("METABASE_SECRET_KEY")
