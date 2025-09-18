@@ -9,7 +9,7 @@ from django.shortcuts import render
 from .utils.metabase import signed_dashboard_url
 
 def rich_list_view(request):
-    iframe_url = settings.IFRAME_URL
+    iframe_url = settings.METABASE_SITE_URL
     return render(request, "webapp/richlist.html", {"iframe_url": iframe_url})
 
 from .viewmixins import BaseMixinView
