@@ -25,18 +25,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link {% if active_userinfo %}active{% endif %}" aria-current="page" href="{% url 'userinfo_form' %}">User Info</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link {% if active_richlist %}active{% endif %}" href="{% url 'richlist' %}">Richlist</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link {% if active_transaction_history %}active{% endif %}" href="{% url 'transaction_history' %}">Transactions</a>
-          </li>
-
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">       
           <li class="nav-item">
             <a class="nav-link" href="https://discord.gg/Z5KVQ5whKR" target="_blank">Discord</a>
           </li>
@@ -44,9 +33,13 @@
             <a class="nav-link" href="https://docs.hivesbi.com/" target="_blank">Documentation</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="http://hivesbi.com:3000/public/dashboard/057097bc-3bd6-414b-b1ed-33efde8549a5" target="_blank">Dashboard Beta</a>
+
+          <li class="nav-item">
             <a class="nav-link" href="http://hivesbi.com:3000/public/dashboard/057097bc-3bd6-414b-b1ed-33efde8549a5?hive_name=&tab=4-activity-view&text=" target="_blank">Dashboards (BETA)</a>
           </li>
         </ul>
+        
 
         {% comment %}
         <form class="d-flex">
